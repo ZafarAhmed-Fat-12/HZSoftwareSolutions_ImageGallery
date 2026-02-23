@@ -27,8 +27,7 @@ async function fetchData(query = "curated") {
   }
 
   if (apiKey === "YOUR_PEXELS_API_KEY") {
-    gallery.innerHTML =
-      "<p>ERROR: Please add your Pexels API key </p>";
+    gallery.innerHTML = "<p>ERROR: Please add your Pexels API key </p>";
     loaderOverlay.classList.add("hidden");
     return;
   }
@@ -128,7 +127,6 @@ function openLightbox(index) {
   document.body.classList.add("no-scroll");
   changeImage(index);
 }
-
 
 function closeLightbox() {
   overlay.classList.remove("active");

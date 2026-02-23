@@ -12,7 +12,7 @@ body {
 .filter-container {
   justify-content: center;
   margin: 20px;
-  padding:  10px;
+  padding: 10px;
 }
 
 .filter-btn {
@@ -26,13 +26,13 @@ body {
   cursor: pointer;
   font-size: 16px;
   font-weight: bold;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
-
 
 .filter-btn:hover {
   background-color: #ccc;
-  
 }
 
 .filter-btn.active {
@@ -162,11 +162,10 @@ body {
   transition: background-color 0.3s ease;
   user-select: none;
   z-index: 10;
-
 }
 
 .galleryOverlay:hover .nav-btn {
-  opacity: 1;   
+  opacity: 1;
 }
 .nav-btn:hover {
   background-color: rgba(0, 0, 0, 0.8);
@@ -191,7 +190,7 @@ body {
   z-index: 10000;
 }
 
-.loader{
+.loader {
   border: 8px solid #f3f3f3;
   border-top: 8px solid #3498db;
   border-radius: 50%;
@@ -201,8 +200,12 @@ body {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .loader-overlay.hidden {
@@ -212,4 +215,3 @@ body {
 .no-scroll {
   overflow: hidden;
 }
-

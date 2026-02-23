@@ -1,38 +1,58 @@
-const filterButtons = document.querySelectorAll(".filter-btn");
 const gallery = document.querySelector(".gallery");
-const loaderOverlay = document.querySelector(".loader-overlay");
 const overlay = document.querySelector(".galleryOverlay");
 const imgBox = document.querySelector(".imgBox");
 const closeIcon = document.querySelector(".closeIcon");
 const previewImg = imgBox.querySelector("img");
 const prevBtn = document.querySelector(".prev-btn");
 const nextBtn = document.querySelector(".next-btn");
+const loaderOverlay = document.querySelector(".loader-overlay");
+const filterButtons = document.querySelectorAll(".filter-btn");
+const imgLoader = document.querySelector(".img-loader");
 
-let currentIndex;
 let items = [];
 let allFetchedImages = [];
+let currentIndex;
 
-async function fetchData() {
+const apiKey = "uQ9VRuXQj4pTW3uO4cfBc8Pu5G8IA1aES37F0QxvzMYi7F2gpcJfjWwI";
+
+async function fetchData(query = "curated") {
+  loaderOverlay.classList.remove("hidden");
+  gallery.innerHTML = "";
+
+  let url;
+  if (query === "curated") {
+    url = "https://api.pexels.com/v1/curated?per_page=100 ";
+  } else {
+    url = `https://api.pexels.com/v1/search?query=${query}&per_page=100`;
+  }
+
+  if (apiKey === "YOUR_PEXELS_API_KEY") {
+    gallery.innerHTML =
+      "<p>ERROR: Please add your Pexels API key </p>";
+    loaderOverlay.classList.add("hidden");
+    return;
+  }
+
   try {
-    // The extra, nested function has been removed from here.
-    const response = await fetch("https://picsum.photos/v2/list?limit=100");
+    const response = await fetch(url, {
+      headers: {
+        Authorization: apiKey,
+      },
+    });
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    const images = await response.json();
 
-    const categories = ["nature", "city", "people", "abstract"];
-    allFetchedImages = images.map((img, index) => {
-      img.category = categories[index % categories.length];
-      return img;
-    });
+    const data = await response.json();
+    allFetchedImages = data.photos;
 
     renderGallery(allFetchedImages);
-    setupFilterListeners();
     loaderOverlay.classList.add("hidden");
   } catch (error) {
-    console.error("Error fetching data:", error);
-    gallery.innerHTML = "<p>Could not load images. Please try again later.</p>";
+    console.error("Error fetching data from Pexels:", error);
+    gallery.innerHTML =
+      "<p>Could not load images. Please check your API key or network connection.</p>";
     loaderOverlay.classList.add("hidden");
   }
 }
@@ -42,10 +62,9 @@ function renderGallery(imagesToRender) {
   imagesToRender.forEach((imageData) => {
     const item = document.createElement("div");
     item.classList.add("item");
-    item.dataset.category = imageData.category;
     item.innerHTML = `
-      <img src="${imageData.download_url}" alt="${imageData.author}" />
-      <div class="text">${imageData.author}</div>
+      <img src="${imageData.src.large}" alt="${imageData.photographer}" />
+      <div class="text">${imageData.photographer}</div>
     `;
     gallery.appendChild(item);
   });
@@ -55,7 +74,7 @@ function renderGallery(imagesToRender) {
     item.addEventListener("click", () => {
       const imageSrc = item.querySelector("img").src;
       const originalIndex = allFetchedImages.findIndex(
-        (img) => img.download_url === imageSrc,
+        (img) => img.src.large === imageSrc,
       );
       if (originalIndex !== -1) {
         openLightbox(originalIndex);
@@ -64,7 +83,7 @@ function renderGallery(imagesToRender) {
   });
 }
 
-function setupFilterListeners() {
+function setupEventListeners() {
   filterButtons.forEach((button) => {
     button.addEventListener("click", () => {
       document.querySelector(".filter-btn.active").classList.remove("active");
@@ -73,12 +92,9 @@ function setupFilterListeners() {
       const category = button.dataset.category;
 
       if (category === "all") {
-        renderGallery(allFetchedImages);
+        fetchData("curated");
       } else {
-        const filteredImages = allFetchedImages.filter(
-          (img) => img.category === category,
-        );
-        renderGallery(filteredImages);
+        fetchData(category);
       }
     });
   });
@@ -86,7 +102,6 @@ function setupFilterListeners() {
   prevBtn.addEventListener("click", showPrevImage);
   nextBtn.addEventListener("click", showNextImage);
   closeIcon.addEventListener("click", closeLightbox);
-
   document.addEventListener("keydown", function (e) {
     if (!overlay.classList.contains("active")) return;
     if (e.key === "ArrowRight") showNextImage();
@@ -102,17 +117,18 @@ function updateNavBtns() {
 }
 
 function changeImage(index) {
-  const imgSrc = allFetchedImages[index].download_url;
+  const imgSrc = allFetchedImages[index].src.original;
   previewImg.src = imgSrc;
   currentIndex = index;
   updateNavBtns();
 }
 
 function openLightbox(index) {
-  changeImage(index);
   overlay.classList.add("active");
   document.body.classList.add("no-scroll");
+  changeImage(index);
 }
+
 
 function closeLightbox() {
   overlay.classList.remove("active");
@@ -131,4 +147,5 @@ function showPrevImage() {
   }
 }
 
-fetchData();
+setupEventListeners();
+fetchData("curated");

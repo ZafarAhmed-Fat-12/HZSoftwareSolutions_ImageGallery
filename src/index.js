@@ -1,4 +1,5 @@
 const gallery = document.querySelector(".gallery");
+const loaderOverlay = document.querySelector(".loader-overlay");
 const overlay = document.querySelector(".galleryOverlay");
 const imgBox = document.querySelector(".imgBox");
 const closeIcon = document.querySelector(".closeIcon");
@@ -10,6 +11,7 @@ let items = [];
 
 async function fetchData() {
   try {
+    console.log(" startingFetching data...");
     const response = await fetch("https://picsum.photos/v2/list?limit=100");
 
     if (!response.ok) {
@@ -28,9 +30,12 @@ async function fetchData() {
       gallery.appendChild(item);
     });
     setupEventListeners();
+    loaderOverlay.classList.add("hidden");
   } catch (error) {
     console.error("Error fetching data:", error);
     gallery.innerHTML = "<p>Could not load images. Please try again later.</p>";
+
+    loaderOverlay.classList.add("hidden");
   }
 }
 

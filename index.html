@@ -7,6 +7,14 @@
     <title>Image Gallery</title>
   </head>
   <body>
+     <div class="filter-container">
+    <button class="filter-btn active" data-category="all">All</button>
+    <button class="filter-btn" data-category="nature">Nature</button>
+    <button class="filter-btn" data-category="city">City</button>
+    <button class="filter-btn" data-category="people">People</button>
+    <button class="filter-btn" data-category="abstract">Abstract</button>
+  </div>
+
       <div class="loader-overlay">
         <div class="loader"></div>
       </div>
@@ -15,6 +23,7 @@
       <span class="nav-btn prev-btn">&lt;</span>
       <div class="imgBox">
         <span class="closeIcon">&times;</span>
+        
         <img src="" alt="Preview Image" />
       </div>
       <span class="nav-btn next-btn">&gt;</span>

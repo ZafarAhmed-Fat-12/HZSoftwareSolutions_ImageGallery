@@ -15,7 +15,7 @@ let allFetchedImages = [];
 async function fetchData() {
   try {
     // The extra, nested function has been removed from here.
-    const response = await fetch("https://picsum.photos/v2/list?limit=100" );
+    const response = await fetch("https://picsum.photos/v2/list?limit=100");
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -30,7 +30,6 @@ async function fetchData() {
     renderGallery(allFetchedImages);
     setupFilterListeners();
     loaderOverlay.classList.add("hidden");
-
   } catch (error) {
     console.error("Error fetching data:", error);
     gallery.innerHTML = "<p>Could not load images. Please try again later.</p>";
@@ -77,7 +76,7 @@ function setupFilterListeners() {
         renderGallery(allFetchedImages);
       } else {
         const filteredImages = allFetchedImages.filter(
-          (img) => img.category === category
+          (img) => img.category === category,
         );
         renderGallery(filteredImages);
       }

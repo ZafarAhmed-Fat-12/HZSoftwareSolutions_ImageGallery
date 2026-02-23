@@ -26,7 +26,9 @@ async function fetchData() {
       item.setAttribute("data-id", ImageData.id);
       item.innerHTML = `
           <img src="https://picsum.photos/id/${ImageData.id}/300/200" alt="image by ${ImageData.author}" />
-      <div class="text">Image ${index + 1}</div> `;
+     <div class="text">${ImageData.author}</div> 
+      `;
+
       gallery.appendChild(item);
     });
     setupEventListeners();

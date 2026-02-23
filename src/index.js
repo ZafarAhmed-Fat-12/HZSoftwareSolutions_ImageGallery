@@ -10,7 +10,7 @@ let items = [];
 
 async function fetchData() {
   try {
-    const response = await fetch("https://picsum.photos/v2/list?limit=500");
+    const response = await fetch("https://picsum.photos/v2/list?limit=100");
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);

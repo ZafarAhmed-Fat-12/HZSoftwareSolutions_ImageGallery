@@ -105,7 +105,7 @@ body {
     max-height: 90%;
   }
 }
-.imgBox span {
+.closeIcon {
   position: absolute;
   top: 0px;
   right: 0px;
@@ -131,8 +131,7 @@ body {
   transition: background-color 0.3s ease;
   user-select: none;
   z-index: 10;
-  opacity: 0;
-  transition: opacity 0.3s ease, background-color 0.3s ease;
+
 }
 
 .galleryOverlay:hover .nav-btn {

@@ -87,10 +87,12 @@ function changeImage(index) {
 function openLightbox(index) {
   changeImage(index);
   overlay.classList.add("active");
+  document.body.classList.add("no-scroll");
 }
 
 function closeLightbox() {
   overlay.classList.remove("active");
+  document.body.classList.remove("no-scroll");
 }
 
 function showNextImage() {

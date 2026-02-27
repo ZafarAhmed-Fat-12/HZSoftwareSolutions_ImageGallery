@@ -66,4 +66,4 @@ Sets up all the main event listeners for the application, including the filter b
 # closeLightbox(): 
 Hides the lightbox and re-enables scrolling on the main page.
 
-# The script starts by setting up the event listeners and then makes an initial call to fetchData() to populate the gallery for the first time.
+The script starts by setting up the event listeners and then makes an initial call to fetchData() to populate the gallery for the first time.

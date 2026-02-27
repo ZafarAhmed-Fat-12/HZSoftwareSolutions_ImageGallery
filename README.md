@@ -18,13 +18,6 @@ This project requires a free API key from Pexels to fetch images.
 Go to https://www.pexels.com/api/ and create a free account.
 Find and copy your API Key from your profile page.
 
-# Add Your API Key:
-Open the src/index.js file.
-Find the following line at the top of the file:
-JavaScript
-# const apiKey = "YOUR_PEXELS_API_KEY_GOES_HERE";
-Replace the placeholder text with your actual Pexels API key (make sure the key is inside the quotation marks).
-
 # Run the Project:
 Open the main image-gallery folder in Visual Studio Code.
 Right-click the index.html file in the VS Code explorer.
